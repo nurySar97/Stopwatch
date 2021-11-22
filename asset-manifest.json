@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.b0edca91.chunk.css",
-    "main.js": "/static/js/main.b7a3a8fc.chunk.js",
-    "main.js.map": "/static/js/main.b7a3a8fc.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.0d3faed5.js",
-    "runtime-main.js.map": "/static/js/runtime-main.0d3faed5.js.map",
-    "static/css/2.4659568d.chunk.css": "/static/css/2.4659568d.chunk.css",
-    "static/js/2.2d1eec04.chunk.js": "/static/js/2.2d1eec04.chunk.js",
-    "static/js/2.2d1eec04.chunk.js.map": "/static/js/2.2d1eec04.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.4659568d.chunk.css.map": "/static/css/2.4659568d.chunk.css.map",
-    "static/css/main.b0edca91.chunk.css.map": "/static/css/main.b0edca91.chunk.css.map",
-    "static/js/2.2d1eec04.chunk.js.LICENSE.txt": "/static/js/2.2d1eec04.chunk.js.LICENSE.txt"
+    "main.css": "/Stopwatch/static/css/main.b0edca91.chunk.css",
+    "main.js": "/Stopwatch/static/js/main.b7a3a8fc.chunk.js",
+    "main.js.map": "/Stopwatch/static/js/main.b7a3a8fc.chunk.js.map",
+    "runtime-main.js": "/Stopwatch/static/js/runtime-main.e20cf950.js",
+    "runtime-main.js.map": "/Stopwatch/static/js/runtime-main.e20cf950.js.map",
+    "static/css/2.4659568d.chunk.css": "/Stopwatch/static/css/2.4659568d.chunk.css",
+    "static/js/2.2d1eec04.chunk.js": "/Stopwatch/static/js/2.2d1eec04.chunk.js",
+    "static/js/2.2d1eec04.chunk.js.map": "/Stopwatch/static/js/2.2d1eec04.chunk.js.map",
+    "index.html": "/Stopwatch/index.html",
+    "static/css/2.4659568d.chunk.css.map": "/Stopwatch/static/css/2.4659568d.chunk.css.map",
+    "static/css/main.b0edca91.chunk.css.map": "/Stopwatch/static/css/main.b0edca91.chunk.css.map",
+    "static/js/2.2d1eec04.chunk.js.LICENSE.txt": "/Stopwatch/static/js/2.2d1eec04.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0d3faed5.js",
+    "static/js/runtime-main.e20cf950.js",
     "static/css/2.4659568d.chunk.css",
     "static/js/2.2d1eec04.chunk.js",
     "static/css/main.b0edca91.chunk.css",
