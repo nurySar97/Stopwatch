@@ -1,39 +1,72 @@
-import { interval, scan } from "rxjs";
-import { useRef, useState } from "react";
+import {
+  buffer,
+  debounceTime,
+  filter,
+  fromEvent,
+  interval,
+  map,
+  scan,
+} from "rxjs";
+import { useRef, useState, useEffect } from "react";
 import { toStopWatch } from "../services";
 
 const Default = () => {
   const [seconds, setSeconds] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const intervalRef = useRef(null);
+  const waitButton = useRef(null);
 
-  const subscribeToTimer = (initSeconds = seconds) => {
+  const subscribeToTimer = (initSeconds = 0) => {
     intervalRef.current = interval(1000)
       .pipe(scan((time) => time + 1, initSeconds))
       .subscribe(setSeconds);
   };
 
   const unSubscribeToTimer = () => {
-    intervalRef.current.unsubscribe();
-    intervalRef.current = null;
+    if (intervalRef.current) {
+      intervalRef.current.unsubscribe();
+      intervalRef.current = null;
+    }
   };
 
   const onHandleStart = () => {
+    setSeconds(0);
     setIsStarted(true);
     subscribeToTimer();
   };
 
   const onHandleStop = () => {
+    setSeconds(0);
     setIsStarted(false);
     unSubscribeToTimer();
   };
 
   const onHandleReset = () => {
-    if (!intervalRef.current) return setSeconds(0);
-    unSubscribeToTimer();
+    setIsStarted(true);
     setSeconds(0);
-    subscribeToTimer(0);
+    unSubscribeToTimer();
+    subscribeToTimer();
   };
+
+  useEffect(() => {
+    const $waitBtn = fromEvent(waitButton.current, "click");
+    const $buffer = $waitBtn.pipe(debounceTime(300));
+
+    const $subscribeWaitdBtn = $waitBtn
+      .pipe(
+        buffer($buffer),
+        map((list) => list.length),
+        filter((x) => x === 2)
+      )
+      .subscribe(() => {
+        if (intervalRef.current) {
+          setIsStarted(false);
+          unSubscribeToTimer();
+        }
+      });
+    return () => $subscribeWaitdBtn.unsubscribe();
+  }, []);
+
   return (
     <main className="stop-watch">
       <div className="container p-3">
@@ -62,7 +95,9 @@ const Default = () => {
               Start
             </button>
           )}
-          <button className="btn btn-warning btn-lg m-3">Wait</button>
+          <button className="btn btn-warning btn-lg m-3" ref={waitButton}>
+            Wait
+          </button>
           <button className="btn btn-info btn-lg m-3" onClick={onHandleReset}>
             Reset
           </button>
