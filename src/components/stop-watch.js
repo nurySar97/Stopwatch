@@ -16,7 +16,8 @@ const Default = () => {
   const intervalRef = useRef(null);
   const waitButtonRef = useRef(null);
 
-  const subscribeToTimer = (initSeconds = 0) => {
+  // subscribe to rxjs interval
+  const subscribeToInterval = (initSeconds = 0) => {
     if (intervalRef.current) return;
 
     intervalRef.current = interval(1000)
@@ -24,30 +25,34 @@ const Default = () => {
       .subscribe(setSeconds);
   };
 
-  const unSubscribeToTimer = () => {
+  // un subscribe to rxjs interval
+  const unSubscribeToInterval = () => {
     if (!intervalRef.current) return;
 
     intervalRef.current.unsubscribe();
     intervalRef.current = null;
   };
 
+  // start button event handler
   const onHandleStart = () => {
     setSeconds(0);
     setIsStarted(true);
-    subscribeToTimer();
+    subscribeToInterval();
   };
 
+  // stop button event handler
   const onHandleStop = () => {
     setSeconds(0);
     setIsStarted(false);
-    unSubscribeToTimer();
+    unSubscribeToInterval();
   };
 
+  // restart button event handler
   const onHandleReset = () => {
     setSeconds(0);
     setIsStarted(true);
-    unSubscribeToTimer();
-    subscribeToTimer();
+    unSubscribeToInterval();
+    subscribeToInterval();
   };
 
   useEffect(() => {
@@ -63,7 +68,7 @@ const Default = () => {
       .subscribe(() => {
         if (!intervalRef.current) return;
         setIsStarted(false);
-        unSubscribeToTimer();
+        unSubscribeToInterval();
       });
     return () => $subscribeWaitdBtn.unsubscribe();
   }, []);
