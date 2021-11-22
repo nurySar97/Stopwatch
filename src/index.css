@@ -1,13 +1,37 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+html,
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: #eee;
+  font-size: 16px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: rgb(9, 17, 22);
+}
+
+.sceleton {
+  width: 100%;
+  padding-top: 100%;
+  background-color: #2f4553;
+  border-radius: 50%;
+}
+
+.sceleton ~ div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+  font-size: 3rem;
+  font-weight: 700;
 }
