@@ -17,16 +17,18 @@ const Default = () => {
   const waitButtonRef = useRef(null);
 
   const subscribeToTimer = (initSeconds = 0) => {
+    if (intervalRef.current) return;
+
     intervalRef.current = interval(1000)
-      .pipe(scan((time) => time + 1000, initSeconds))
+      .pipe(scan((time) => time + 1, initSeconds))
       .subscribe(setSeconds);
   };
 
   const unSubscribeToTimer = () => {
-    if (intervalRef.current) {
-      intervalRef.current.unsubscribe();
-      intervalRef.current = null;
-    }
+    if (!intervalRef.current) return;
+
+    intervalRef.current.unsubscribe();
+    intervalRef.current = null;
   };
 
   const onHandleStart = () => {
@@ -59,10 +61,9 @@ const Default = () => {
         filter((x) => x === 2)
       )
       .subscribe(() => {
-        if (intervalRef.current) {
-          setIsStarted(false);
-          unSubscribeToTimer();
-        }
+        if (!intervalRef.current) return;
+        setIsStarted(false);
+        unSubscribeToTimer();
       });
     return () => $subscribeWaitdBtn.unsubscribe();
   }, []);
@@ -74,7 +75,9 @@ const Default = () => {
         <hr />
         <div className="row justify-content-center">
           <div className="col-10 col-sm-8 col-md-4 col-lg-4 col-xl-3 text-center position-relative">
-            <div className={`sceleton ${isStarted ? 'sceleton-animate' : ''}`} />
+            <div
+              className={`sceleton ${isStarted ? "sceleton-animate" : ""}`}
+            />
             <div>{toStopWatch(seconds)}</div>
           </div>
         </div>
