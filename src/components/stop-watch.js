@@ -14,11 +14,11 @@ const Default = () => {
   const [seconds, setSeconds] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const intervalRef = useRef(null);
-  const waitButton = useRef(null);
+  const waitButtonRef = useRef(null);
 
   const subscribeToTimer = (initSeconds = 0) => {
     intervalRef.current = interval(1000)
-      .pipe(scan((time) => time + 1, initSeconds))
+      .pipe(scan((time) => time + 1000, initSeconds))
       .subscribe(setSeconds);
   };
 
@@ -42,14 +42,14 @@ const Default = () => {
   };
 
   const onHandleReset = () => {
-    setIsStarted(true);
     setSeconds(0);
+    setIsStarted(true);
     unSubscribeToTimer();
     subscribeToTimer();
   };
 
   useEffect(() => {
-    const $waitBtn = fromEvent(waitButton.current, "click");
+    const $waitBtn = fromEvent(waitButtonRef.current, "click");
     const $buffer = $waitBtn.pipe(debounceTime(300));
 
     const $subscribeWaitdBtn = $waitBtn
@@ -74,7 +74,7 @@ const Default = () => {
         <hr />
         <div className="row justify-content-center">
           <div className="col-10 col-sm-8 col-md-4 col-lg-4 col-xl-3 text-center position-relative">
-            <div className="sceleton" />
+            <div className={`sceleton ${isStarted ? 'sceleton-animate' : ''}`} />
             <div>{toStopWatch(seconds)}</div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Default = () => {
               Start
             </button>
           )}
-          <button className="btn btn-warning btn-lg m-3" ref={waitButton}>
+          <button className="btn btn-warning btn-lg m-3" ref={waitButtonRef}>
             Wait
           </button>
           <button className="btn btn-info btn-lg m-3" onClick={onHandleReset}>

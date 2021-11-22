@@ -1,5 +1,15 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 html,
 body {
   color: #eee;
@@ -20,17 +30,37 @@ body {
 }
 
 .sceleton {
+  position: relative;
   width: 100%;
   padding-top: 100%;
   background-color: #2f4553;
   border-radius: 50%;
 }
 
-.sceleton ~ div {
+.sceleton::before {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 5px solid transparent;
+  border-radius: 50%;
+
+  border-top-color: lightblue;
+  border-bottom-color: lightblue;
+}
+
+.sceleton-animate {
+  animation: rotate 1s linear infinite;
+}
+
+.sceleton~div {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 
   font-size: 3rem;
 }
